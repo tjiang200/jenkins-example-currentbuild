@@ -12,6 +12,7 @@ pipeline {
             steps {
                 echo "${JOB_NAME}: Building"
                 git branch: 'master', credentialsId: '166087ca-f883-4985-a8a8-e4ad426d4b9d', url: 'https://github.com/tjiang200/JenkinsPipelineDemo.git'
+                echo "Build number is ${currentBuild.number}" 
             }
         }
         stage('Test') {
