@@ -1,0 +1,31 @@
+pipeline {
+    agent any
+
+    stages {
+        stage('Env Variables') {
+            steps {
+                echo "${JOB_NAME}: Env Variables"
+                sh "printenv"
+            }
+        }
+        stage('Build') {
+            steps {
+                echo "${JOB_NAME}: Building"
+                git branch: 'master', credentialsId: '166087ca-f883-4985-a8a8-e4ad426d4b9d', url: 'https://github.com/tjiang200/JenkinsPipelineDemo.git'
+            }
+        }
+        stage('Test') {
+            steps {
+                echo "${JOB_NAME}: Testing"
+                sh 'pwd'
+                sh 'ls -ltr'
+                sh 'python scripts/test.py -p terraform-sentinel-policies-aws -w tian02-devl-etss-tian02ws'
+            }
+        }
+    }
+    post {
+        success {
+            echo "${JOB_NAME}: succeeded"
+        }
+    }
+}
