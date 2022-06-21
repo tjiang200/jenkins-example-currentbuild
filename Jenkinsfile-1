@@ -24,8 +24,8 @@ pipeline {
         }
     }
     post {
-        success {
-            echo "${JOB_NAME}: succeeded"
+        always {
+            echo currentBuild.currentResult
         }
     }
 }
